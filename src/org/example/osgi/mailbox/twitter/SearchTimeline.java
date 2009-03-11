@@ -43,7 +43,6 @@ public class SearchTimeline implements ITimeline {
 			highestId = (id > highestId) ? id : highestId;
 			
 			if(id > sinceId) {
-				log.info("Adding tweet with ID={}", id);
 				into.add(new TweetMessage(tweet));
 			}
 		}

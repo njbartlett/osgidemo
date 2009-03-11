@@ -1,5 +1,6 @@
 package org.example.osgi.reader.gui;
 
+import java.awt.Component;
 import java.util.Properties;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -21,10 +22,12 @@ import org.osgi.util.tracker.ServiceTracker;
 public class ReaderMailboxTracker extends ServiceTracker {
 
 	private final JTabbedPane tabbedPane;
+	private final Component placeholder;
 
-	public ReaderMailboxTracker(BundleContext ctx, JTabbedPane tabbedPane) {
+	public ReaderMailboxTracker(BundleContext ctx, JTabbedPane tabbedPane, Component placeholder) {
 		super(ctx, Mailbox.class.getName(), null);
 		this.tabbedPane = tabbedPane;
+		this.placeholder = placeholder;
 	}
 
 	@Override
@@ -40,6 +43,7 @@ public class ReaderMailboxTracker extends ServiceTracker {
 					MailboxPanel panel = new MailboxPanel(mbox);
 					String title = (mboxName != null) ? mboxName : "<unknown>";
 					tabbedPane.addTab(title, panel);
+					tabbedPane.remove(placeholder);
 					
 					Properties props = new Properties();
 					props.put(Mailbox.NAME_PROPERTY, title);
@@ -71,6 +75,9 @@ public class ReaderMailboxTracker extends ServiceTracker {
 					Pair<MailboxPanel, ServiceRegistration> pair = panelRef.get();
 					if (pair != null) {
 						tabbedPane.remove(pair.getA());
+						if(tabbedPane.getTabCount() == 0) {
+							tabbedPane.add("Mailbox Reader", placeholder);
+						}
 						try {
 							pair.getB().unregister();
 						} catch (IllegalStateException e) {

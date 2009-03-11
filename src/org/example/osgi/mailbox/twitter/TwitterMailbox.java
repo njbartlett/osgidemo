@@ -99,10 +99,14 @@ public class TwitterMailbox implements Mailbox, Runnable {
 			while(!Thread.interrupted()) {
 				// Get timeline
 				messages.clear();
-				if(lastId == -1) {
-					lastId = timeline.getInitialTimeline(messages);
-				} else {
-					lastId = timeline.getTimelineSinceId(lastId, messages);
+				try {
+					if(lastId == -1) {
+						lastId = timeline.getInitialTimeline(messages);
+					} else {
+						lastId = timeline.getTimelineSinceId(lastId, messages);
+					}
+				} catch (TwitterException e) {
+					log.error("Error querying Twitter timeline", e);
 				}
 				
 				// Add statuses to the map
@@ -123,8 +127,6 @@ public class TwitterMailbox implements Mailbox, Runnable {
 				log.info("Sleeping for 100 seconds");
 				Thread.sleep(100000);
 			}
-		} catch (TwitterException e) {
-			log.error("Twitter error", e);
 		} catch (InterruptedException e) {
 			log.debug("Interrupted");
 		} finally {

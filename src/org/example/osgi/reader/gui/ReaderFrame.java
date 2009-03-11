@@ -18,26 +18,29 @@ import org.osgi.framework.BundleContext;
 public class ReaderFrame extends JFrame {
 
 	private JTabbedPane tabbedPane;
+	private Component introPanel;
+	
 	private ReaderMailboxTracker tracker;
 
 	public ReaderFrame() {
 		super("Mailbox Reader");
 
 		tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("Mailboxes", createIntroPanel());
+		introPanel = createIntroPanel();
+		tabbedPane.addTab("Mailbox Reader", introPanel);
 		tabbedPane.setPreferredSize(new Dimension(400, 400));
 
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 	}
 
 	private Component createIntroPanel() {
-		JLabel label = new JLabel("Select a Mailbox");
+		JLabel label = new JLabel("No mailboxes available");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		return label;
 	}
 
 	protected void openTracking(BundleContext context) {
-		tracker = new ReaderMailboxTracker(context, tabbedPane);
+		tracker = new ReaderMailboxTracker(context, tabbedPane, introPanel);
 		tracker.open();
 	}
 
