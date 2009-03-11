@@ -1,0 +1,7 @@
+# Fill in your S3 details and rename to
+# name.neilbartlett.s3install-private.cfg
+s3id=
+s3key=
+bucket=
+period=10000
+prefix=bundles/

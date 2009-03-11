@@ -1,0 +1,2 @@
+Bundle-Activator=org.example.osgi.hsqldb.HsqldbActivator
+Private-Package=org.example.osgi.hsqldb

@@ -1,0 +1,2 @@
+Bundle-Activator: org.example.osgi.mailbox.db.DBMailboxActivator
+Private-Package: org.example.osgi.mailbox.db

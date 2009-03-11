@@ -1,0 +1,2 @@
+Bundle-Activator=org.example.osgi.reader.gui.ReaderFrameActivator
+Private-Package=org.example.osgi.reader.gui

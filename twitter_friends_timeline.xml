@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component name="TwitterFriendsTimeline" xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0">
+
+	<implementation class="org.example.osgi.mailbox.twitter.FriendsTimeline" />
+	<property name="username" value="njbartlett_test" />
+	<property name="password" value="foobar"/>
+	<property name="timelineType" value="friends"/>
+
+	<service>
+		<provide interface="org.example.osgi.mailbox.twitter.ITimeline" />
+	</service>
+
+</scr:component>

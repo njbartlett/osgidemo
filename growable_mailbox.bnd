@@ -1,0 +1,4 @@
+Bundle-Activator=org.example.osgi.mailbox.growable.GrowableMailboxActivator
+Private-Package=org.example.osgi.mailbox.growable,\
+	org.example.osgi.mailbox.fixed,\
+	org.example.osgi.utils

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="runtime/org.eclipse.osgi_3.5.0.v20090127-1630.jar" sourcepath="runtime/org.eclipse.osgi.source_3.5.0.v20090127-1630.jar"/>
+	<classpathentry kind="lib" path="runtime/org.eclipse.osgi.services_3.2.0.v20081205-1800.jar" sourcepath="runtime/org.eclipse.osgi.services.source_3.2.0.v20081205-1800.jar"/>
+	<classpathentry kind="lib" path="runtime/rome-1.0RC2.jar"/>
+	<classpathentry kind="lib" path="runtime/slf4j-api_1.5.6.jar"/>
+	<classpathentry kind="lib" path="runtime/org.hsqldb_1.8.0.v09.jar"/>
+	<classpathentry kind="lib" path="runtime/twitter4j_1.1.7.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component name="TwitterSearchTimeline" xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0">
+
+	<implementation class="org.example.osgi.mailbox.twitter.SearchTimeline" />
+	<property name="query" value="#qcon" />
+	<property name="timelineType" value="search"/>
+
+	<service>
+		<provide interface="org.example.osgi.mailbox.twitter.ITimeline" />
+	</service>
+
+</scr:component>

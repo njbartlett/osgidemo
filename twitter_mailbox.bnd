@@ -1,0 +1,7 @@
+Private-Package=org.example.osgi.mailbox.twitter
+Service-Component: OSGI-INF/friends_mailbox.xml,OSGI-INF/friends_timeline.xml,\
+	OSGI-INF/search_mailbox.xml,OSGI-INF/search_timeline.xml
+Include-Resource: OSGI-INF/friends_mailbox.xml=twitter_friends_mailbox.xml,\
+	OSGI-INF/friends_timeline.xml=twitter_friends_timeline.xml,\
+	OSGI-INF/search_mailbox.xml=twitter_search_mailbox.xml,\
+	OSGI-INF/search_timeline.xml=twitter_search_timeline.xml

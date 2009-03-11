@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component name="TwitterFriendsMailbox"
+	xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0">
+	
+	<implementation class="org.example.osgi.mailbox.twitter.TwitterMailbox" />
+	<property name="mailboxName" value="Twitter Friends" />
+
+	<service>
+		<provide interface="org.example.osgi.mailbox.api.Mailbox" />
+	</service>
+
+	<reference name="TIMELINE" interface="org.example.osgi.mailbox.twitter.ITimeline"
+		bind="setTimeline" unbind="unsetTimeline" target="(timelineType=friends)"/>
+
+	<reference name="LISTENERS"
+		interface="org.example.osgi.mailbox.api.MailboxListener" bind="addListener"
+		unbind="removeListener" cardinality="0..n" policy="dynamic"
+		target="(mailboxName=Twitter Friends)" />
+</scr:component>

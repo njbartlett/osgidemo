@@ -1,0 +1,2 @@
+Bundle-Activator=org.example.osgi.mailbox.fixed.WelcomeMailboxActivator
+Private-Package=org.example.osgi.mailbox.fixed
