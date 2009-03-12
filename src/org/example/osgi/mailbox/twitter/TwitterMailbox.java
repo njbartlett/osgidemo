@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.example.osgi.mailbox.api.Mailbox;
 import org.example.osgi.mailbox.api.MailboxException;
 import org.example.osgi.mailbox.api.MailboxListener;
 import org.example.osgi.mailbox.api.Message;
+import org.osgi.service.log.LogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,10 +23,9 @@ import twitter4j.TwitterException;
 
 public class TwitterMailbox implements Mailbox, Runnable {
 	
-	private final Logger log = LoggerFactory.getLogger(TwitterMailbox.class);
-	
 	private final TreeMap<Long, Message> tweets = new TreeMap<Long, Message>();
 	private final List<MailboxListener> listeners = Collections.synchronizedList(new LinkedList<MailboxListener>());
+	private final AtomicReference<LogService> logRef = new AtomicReference<LogService>(null);
 	
 	private ITimeline timeline;
 	private String mailboxName;
@@ -44,6 +45,14 @@ public class TwitterMailbox implements Mailbox, Runnable {
 	
 	protected final void removeListener(MailboxListener listener) {
 		listeners.remove(listener);
+	}
+	
+	protected final void setLog(LogService log) {
+		logRef.set(log);
+	}
+	
+	protected final void unsetLog(LogService log) {
+		logRef.compareAndSet(log, null);
 	}
 	
 	// LIFECYCLE
@@ -94,7 +103,7 @@ public class TwitterMailbox implements Mailbox, Runnable {
 		long lastId = -1;
 		List<Message> messages = new ArrayList<Message>(20);
 		
-		log.info("Starting TwitterMailbox thread");
+		log(LogService.LOG_INFO, "Starting TwitterMailbox thread", null);
 		try {
 			while(!Thread.interrupted()) {
 				// Get timeline
@@ -106,7 +115,7 @@ public class TwitterMailbox implements Mailbox, Runnable {
 						lastId = timeline.getTimelineSinceId(lastId, messages);
 					}
 				} catch (TwitterException e) {
-					log.error("Error querying Twitter timeline", e);
+					log(LogService.LOG_ERROR, "Error querying Twitter timeline", e);
 				}
 				
 				// Add statuses to the map
@@ -124,13 +133,20 @@ public class TwitterMailbox implements Mailbox, Runnable {
 					((MailboxListener) listener).messagesArrived(mailboxName, this, newIds);
 				}
 				
-				log.info("Sleeping for 100 seconds");
+				log(LogService.LOG_DEBUG, "Sleeping for 100 seconds", null);
 				Thread.sleep(100000);
 			}
 		} catch (InterruptedException e) {
-			log.debug("Interrupted");
+			log(LogService.LOG_DEBUG, "Interrupted", null);
 		} finally {
-			log.info("TwitterMailbox thread exiting");
+			log(LogService.LOG_INFO, "TwitterMailbox thread exiting", null);
+		}
+	}
+	
+	private void log(int level, String message, Throwable t) {
+		LogService log = logRef.get();
+		if(log != null) {
+			log.log(level, message, t);
 		}
 	}
 	

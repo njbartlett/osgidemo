@@ -16,4 +16,10 @@
 		interface="org.example.osgi.mailbox.api.MailboxListener" bind="addListener"
 		unbind="removeListener" cardinality="0..n" policy="dynamic"
 		target="(mailboxName=Twitter Search)" />
+	
+	<reference name="LOG"
+		interface="org.osgi.service.log.LogService"
+		bind="setLog" unbind="unsetLog"
+		cardinality="0..1" policy="dynamic"/>
+
 </scr:component>
