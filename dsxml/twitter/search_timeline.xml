@@ -2,7 +2,7 @@
 <scr:component name="TwitterSearchTimeline" xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0">
 
 	<implementation class="org.example.osgi.mailbox.twitter.SearchTimeline" />
-	<property name="query" value="#qcon" />
+	<property name="query" value="#skillsmatter" />
 	<property name="timelineType" value="search"/>
 
 	<service>

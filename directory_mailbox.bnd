@@ -1,0 +1,4 @@
+Private-Package=org.example.osgi.mailbox.directory
+Service-Component=OSGI-INF/directory_mbox.xml
+Include-Resource=\
+	OSGI-INF=dsxml/dirmbox
